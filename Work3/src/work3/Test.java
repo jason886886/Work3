@@ -1,23 +1,25 @@
 package work3;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import work3.dao.OrderDaoImpl;
+import work3.domain.Order;
+import work3.utils.JdbcUtils;
+
+import java.sql.*;
+
 
 /**
  * @author jason
  */
 public class Test {
+
     public static void main(String[] args) {
-        Connection con = null;
-        Statement stat = null;
-        ResultSet res = null;
-        try {
-            con = JdbcUtils.getConnection();
-            stat = con.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Connection conn = JdbcUtils.getConnection();
+        OrderDaoImpl orderDao = new OrderDaoImpl(conn);
+        Order order = new Order(1, 3, 4.5);
+        orderDao.insert(order);
+
     }
 }
+
+
